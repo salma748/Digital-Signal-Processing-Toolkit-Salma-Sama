@@ -69,5 +69,5 @@ python main.py
 
 ## Contributors
 
-- Salma
-- Sama
+- Salma Mohamed Hafez Mahmoud
+- Sama Mohamed Ali El Shourbagy 
