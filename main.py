@@ -1,11 +1,11 @@
 import tkinter as tk
 
-from gui.main_window import MainWindow
+from gui.task_menu import TaskMenu
 
 
 def main():
     root = tk.Tk()
-    app = MainWindow(root)
+    app = TaskMenu(root)
     root.mainloop()
 
 
