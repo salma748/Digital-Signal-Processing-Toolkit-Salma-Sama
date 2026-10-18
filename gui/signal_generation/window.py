@@ -21,7 +21,7 @@ DEFAULTS = {
 class SignalGenerationWindow(tk.Toplevel):
     """GUI for generating and previewing sine and cosine signals."""
 
-    def __init__(self, master, waveform="sine", on_signal=None):
+    def __init__(self, master, waveform="sine", on_signal=None, on_close=None):
         super().__init__(master)
 
         self.title("Signal Generation")
@@ -33,6 +33,7 @@ class SignalGenerationWindow(tk.Toplevel):
         theme.apply_styles(self, self.fonts)
 
         self.on_signal = on_signal
+        self.on_close = on_close
         self.current_signal = None
         self.current_sampling_frequency = None
 
@@ -130,11 +131,7 @@ class SignalGenerationWindow(tk.Toplevel):
 
         self.bind_all("<MouseWheel>", on_mousewheel)
 
-        def remove_mousewheel_binding():
-            self.unbind_all("<MouseWheel>")
-            self.destroy()
-
-        self.protocol("WM_DELETE_WINDOW", remove_mousewheel_binding)
+        self.protocol("WM_DELETE_WINDOW", self.close)
 
         tk.Label(
             controls,
@@ -396,3 +393,9 @@ class SignalGenerationWindow(tk.Toplevel):
         self.waveform_var.set("Sine")
 
         self.generate()
+
+    def close(self):
+        self.unbind_all("<MouseWheel>")
+        self.destroy()
+        if self.on_close is not None:
+            self.on_close()
